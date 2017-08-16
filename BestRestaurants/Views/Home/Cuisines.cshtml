@@ -1,21 +1,23 @@
+@{
+  Layout = "_Layout";
+}
 <h2>Cuisines:</h2>
 
-@if(@Model.GetAll().Count == 0)
+@if(@Model.Count == 0)
 {
   <h3>There are currently no cuisines added to the list! Add a new cuisine by clicking on the button below.</h3>
 }
 else
 {
-  <ul>
-    @foreach(var cuisine in @Model.GetAll())
+  <div class="well">
+   <ul>
+    @foreach(var cuisine in @Model)
     {
-      <li><a href="restaurants/cuisine/@cuisine.GetId()">@cuisine.GetName() from the @cuisine.GetRegion() region.</a></li>
+      <li><a href="/restaurants/cuisines/@cuisine.GetId()">@cuisine.GetName() from the @cuisine.GetRegion() region.</a></li>
     }
-  </ul>
+   </ul>
+  </div>
 }
-
-
-<button><a href="/cuisines/add">Add Cuisine</a></button>
-
-<button><a href="/">Back Home</a></button>
-<button><a href="/restaurants">View All Restaurants</a></button>
+<button class="btn btn-default"><a href="/cuisines/add">Add Cuisine</a></button>
+<button class="btn btn-default"><a href="/">Home</a></button>
+<button class="btn btn-default"><a href="/restaurants">View All Restaurants</a></button>

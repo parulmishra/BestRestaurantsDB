@@ -1,11 +1,15 @@
-<h2>Cuisine Form</h2>
+@{
+  Layout = "_Layout";
+}
+<h2>Add a Cuisine here</h2>
 
-<form action="/cuisines" method="post">
-  <label for="cuisine-name">Cuisine Type:</label>
-  <input type="text" name="cuisine-name" id="cuisine-name">
+<form action="/cuisines/add" method="post">
+  <label for="cuisine_name">Cuisine Type:</label>
+  <input type="text" name="cuisine_name" id="cuisine_name">
 
-  <label for="cuisine-region">Region of Cuisine:</label>
-  <input type="text" name="cuisine-region" id="cuisine-region">
+  <label for="cuisine_region">Region of Cuisine:</label>
+  <input type="text" name="cuisine_region" id="cuisine_region">
 
-  <button type="submit">Submit</button>
+  <button class="btn btn-default" type="submit">Submit</button>
 </form>
+<button class="btn btn-default"><a href="/">Home</a></button>

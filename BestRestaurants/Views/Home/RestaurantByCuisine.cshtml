@@ -1,4 +1,7 @@
-<h2>@Model["cuisine"].GetName() Restaurants</h2>
+@{
+  Layout = "_Layout";
+}
+<h2>@Model["cuisines"].GetName() Restaurants</h2>
 
 @if(@Model["restaurants"].Count == 0)
 {
@@ -6,9 +9,23 @@
 }
 else
 {
+  <div class="well">
+  <ul>
   @foreach(var restaurant in @Model["restaurants"])
   {
-    <li><a href="restaurants/@restaurant.GetId()/detail">@restaurant.GetName()</a></li>
+    <li><a href="/restaurants/@restaurant.GetId()/cuisines/@Model["cuisines"].GetId()">@restaurant.GetName()</a></li>
   }
+  </ul>
+  </div>
 }
-<button><a href="/cuisines/add">Add Restaurant</a></button>
+<div class="row">
+  <div class= "col-md-4">
+     <button class="btn btn-default"><a href='/restaurantform/add/@Model["cuisines"].GetId()'>Add Restaurant</a></button>
+  </div>
+  <div class= "col-md-4">
+     <button class="btn btn-default" id="homebtn"><a href="/">Home</a></button>
+  </div>
+<div class= "col-md-4">
+     <button class="btn btn-default" id="deleteall"><a href="/cuisines">Delete All Restaurants for this cuisine</a></button>
+</div>
+</div>
