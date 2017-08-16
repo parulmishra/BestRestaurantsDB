@@ -1,0 +1,18 @@
+<h2>All Restaurants:</h2>
+
+@if (@Model.Count == 0)
+{
+  <h3>No Restaurants have been added yet! Please view the cuisines if you wish to add a restaurant.</h3>
+}
+else
+{
+  <ul>
+  @foreach(var restaurant in @Model)
+  {
+    <li><a href="restaurants/@restaurant.GetId()/detail">@restaurant.GetName()</a></li>
+  }
+  </ul>
+}
+
+<button><a href="/cuisines">View Cuisines</a></button>
+<button><a href="/">Back Home</a></button>
