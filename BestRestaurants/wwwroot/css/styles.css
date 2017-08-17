@@ -17,7 +17,7 @@ h2
   font-size: 80px;
   color: #300815;
 }
-.well {
+#list {
   background-color: white;
   width: 100%;
   opacity: 0.8;
@@ -37,8 +37,6 @@ h2
   background: #6b1733;
   padding: 32px 31px 31px 31px;
   text-decoration: none;
-  margin-left: 50px;
-  margin-top: 150px;
 }
 .btn:hover {
   background: #b85360;
@@ -49,18 +47,23 @@ h2
   background-image: linear-gradient(to bottom, #b85360, #d6328f);
   text-decoration: none;
 }
-#cuisinebtn
+#viewcuisinebtn1
 {
-  margin-left: 100px;
+	margin-left: 150px;
+	margin-top: 150px;
 }
-#deleteall
+#viewrestaurantbtn1
 {
-  margin-left: 10px;
+	margin-left: 150px;
+	margin-top: 150px;
 }
-#homebtn
+#cuisinebtn1
 {
-  margin-left: 100px;
+	margin-left: 330px;
+	margin-top: 150px;
+	margin-bottom: 50px;
 }
+
 a
 {
   color:black;
