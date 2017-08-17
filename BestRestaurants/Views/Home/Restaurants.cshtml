@@ -14,7 +14,8 @@ else
       <h3>Name:</h3>
     </div>
     <div class="col-md-3">
-      <h3>Cuisine Type:</h3>
+      <h3 class="cuisine-names">Cuisine Type:</h3>
+      <button id="cuisine-name">helpme</button>
     </div>
     <div class="col-md-3">
       <h3>Average Review:</h3>
@@ -22,18 +23,18 @@ else
   </div>
   <div class="row">
     <div class="col-md-6">
-      <ul>
+      <ul class="restaurant-names">
       @foreach(var restaurant in @Model["restaurants"])
       {
-        <li><a href='restaurants/@restaurant.GetId()/cuisines/@restaurant.GetCuisineId()'>@restaurant.GetName()</a></li>
+        <li class="restaurant-sort"><a href='restaurants/@restaurant.GetId()/cuisines/@restaurant.GetCuisineId()'>@restaurant.GetName()</a></li>
       }
       </ul>
     </div>
     <div class="col-md-3">
-      <ul>
+      <ul class="cuisine-names">
       @foreach(var restaurant in @Model["restaurants"])
       {
-        <li>
+        <li class="cuisine-sort">
         @foreach(var cuisine in @Model["cuisines"])
         {
             if(@cuisine.GetId() == @restaurant.GetCuisineId())
@@ -46,12 +47,12 @@ else
       </ul>
     </div>
     <div class="col-md-3">
-      <!--<ul>
+      <ul>
       @foreach(var restaurant in @Model["restaurants"])
       {
         <li>restaurant.GetAverageReviews()</li>
       }
-      </ul>-->
+      </ul>
     </div>
   </div>
 }
