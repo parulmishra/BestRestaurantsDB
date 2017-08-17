@@ -89,9 +89,27 @@ namespace BestRestaurants.Controllers
 			Dictionary<string,object> details = new Dictionary<string,object>();
 			Restaurant newRestaurant = Restaurant.Find(id);
 			Cuisine newCuisine = Cuisine.Find(id2);
+			details.Add("reviews", newRestaurant.GetReviewSpecificToRestaurant());
 			details.Add("restaurants",newRestaurant);
 			details.Add("cuisines",newCuisine);
 			return View(details);
+		}
+
+		[HttpPost("/restaurants/{id}/cuisines/{id2}/")]
+		public ActionResult RestaurantDetailsReviewInput(int id, int id2)
+		{
+			string name = Request.Form["review_name"];
+			int rating = int.Parse(Request.Form["review_rating"]);
+			string description = Request.Form["review_description"];
+			Review myReview = new Review(name, description, rating, id);
+			myReview.Save();
+			Dictionary<string,object> details = new Dictionary<string,object>();
+			Restaurant newRestaurant = Restaurant.Find(id);
+			Cuisine newCuisine = Cuisine.Find(id2);
+			details.Add("reviews", newRestaurant.GetReviewSpecificToRestaurant());
+			details.Add("restaurants",newRestaurant);
+			details.Add("cuisines",newCuisine);
+			return View("RestaurantDetails",details);
 		}
 
 		//Delete a restaurant form
@@ -136,12 +154,14 @@ namespace BestRestaurants.Controllers
 			Cuisine.Find(id).DeleteRestaurants();
 			return View("Cuisines", Cuisine.GetAll());
 		}
-		[HttpPost("/restaurants/sort/cuisine")]
-		public ActionResult SortAllRestaurantsByCuisine()
+		[HttpGet("/cuisine/{id}/restaurant/{id2}/reviews/add")]
+		public ActionResult ReviewForm(int id, int id2)
 		{
-			Dictionary<string,object> model = new Dictionary<string,object>();
-			model.Add("cuisines",Cuisine.GetAll());
-			model.Add("restaurants",Restaurant.GetAll());
+			Dictionary<string, object> model = new Dictionary<string, object>();
+
+			model.Add("cuisines", Cuisine.Find(id));
+			model.Add("restaurants", Restaurant.Find(id2));
+
 			return View(model);
 		}
 	}

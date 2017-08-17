@@ -11,6 +11,15 @@
    @* <h3>Average Review: @Model["restaurants"].GetAverageReviews()</h3> *@
 
 </div>
+<div class="well">
+  @foreach (var review in @Model["reviews"])
+  {
+    <p>@review.GetUserName()</p>
+    <p>@review.GetDescription()</p>
+    <p>@review.GetRating()</p>
+  }
+</div>
+<button class="btn btn-default" id="homebtn7"><a href='/cuisine/@Model["cuisines"].GetId()/restaurant/@Model["restaurants"].GetId()/reviews/add'>Add a Review</a></button>
 <button class="btn btn-default" id="homebtn7"><a href="/restaurants/@Model["restaurants"].GetId()/cuisines/@Model["cuisines"].GetId()/reviews">All Reviews</a></button>
 <button class="btn btn-default" type="button" id="restaurantbycuisinebtn7"><a href='/restaurants/cuisines/@Model["cuisines"].GetId()'>Back to Restaurant By Cuisine</a></button>
 <button class="btn btn-default" id="homebtn7"><a href="/">Home</a></button>

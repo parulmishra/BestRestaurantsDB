@@ -9,9 +9,9 @@ namespace BestRestaurants.Models
     private int _id;
     private string _userName;
     private string _description;
-    private string _rating;
+    private int _rating;
     private int _restaurantId;
-    public Review(string name, string description, string rating, int restaurantId, int id)
+    public Review(string name, string description, int rating, int restaurantId, int id = 0)
     {
       _userName = name;
       _description = description;
@@ -32,7 +32,7 @@ namespace BestRestaurants.Models
     {
       return _description;
     }
-    public string GetRating()
+    public int GetRating()
     {
       return _rating;
     }
@@ -61,7 +61,7 @@ namespace BestRestaurants.Models
     {
       return this.GetUserName().GetHashCode();
     }
-    public List<Review> GetAll()
+    public static List<Review> GetAll()
     {
       List<Review> allReviews = new List<Review>();
       MySqlConnection conn = DB.Connection();
@@ -76,7 +76,7 @@ namespace BestRestaurants.Models
         int reviewId = rdr.GetInt32(0);
         string userName = rdr.GetString(1);
         string description = rdr.GetString(2);
-        string rating = rdr.GetString(3);
+        int rating = rdr.GetInt32(3);
         int cuisineId = rdr.GetInt32(4);
         Review newReview = new Review(userName,description,rating, cuisineId, reviewId);
         allReviews.Add(newReview);
@@ -90,7 +90,7 @@ namespace BestRestaurants.Models
       conn.Open();
 
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText =@"INSERT INTO Review(username,description,rating,restaurantId,id) VALUES(@username, @description, @rating, @restaurantId, @id);";
+      cmd.CommandText =@"INSERT INTO Review(username,description,rating,restaurantId) VALUES(@username, @description, @rating, @restaurantId);";
 
       MySqlParameter username = new MySqlParameter();
       username.ParameterName = "@username";
@@ -135,13 +135,13 @@ namespace BestRestaurants.Models
       int restaurantId = 0;
       string username = "";
       string description = "";
-      string rating = "";
+      int rating = 0;
       while(rdr.Read())
       {
         reviewid = rdr.GetInt32(0);
         username = rdr.GetString(1);
         description = rdr.GetString(2);
-        rating  = rdr.GetString(3);
+        rating  = rdr.GetInt32(3);
         restaurantId = rdr.GetInt32(4);
       }
       Review newReview = new Review(username, description, rating, restaurantId, reviewid);
