@@ -7,6 +7,8 @@ namespace BestRestaurants.Controllers
 {
 	public class HomeController : Controller
 	{
+
+		//BASIC MENU PAGES
     [HttpGet("/")]
     public ActionResult Index()
     {
@@ -26,6 +28,8 @@ namespace BestRestaurants.Controllers
 			model.Add("restaurants",Restaurant.GetAll());
 			return View(model);
     }
+
+		//CUISINE MANAGEMENT PAGES
 		[HttpGet("/cuisines/add")]
 		public ActionResult CuisineForm()
 		{
@@ -40,6 +44,10 @@ namespace BestRestaurants.Controllers
 			newCuisine.Save();
 			return View("Cuisines", Cuisine.GetAll());
 		}
+
+		//RESTAURANT MANAGEMENT PAGES
+
+		//list of rests
 		[HttpGet("/restaurants/cuisines/{id}")]
 		public ActionResult RestaurantByCuisine(int id)
 		{
@@ -50,11 +58,15 @@ namespace BestRestaurants.Controllers
 			model.Add("restaurants",myCuisine.GetRestaurants());
 			return View(model);
 		}
+
+		//form for new rest
 		[HttpGet("/restaurantform/add/{id}")]
 		public ActionResult RestaurantForm(int id)
 		{
 			return View(Cuisine.Find(id));
 		}
+
+		//submit new rest
 		[HttpPost("/restaurants/cuisines/{id}")]
 		public ActionResult RestaurantFormInput(int id)
 		{
@@ -69,6 +81,8 @@ namespace BestRestaurants.Controllers
 
 			return View("RestaurantByCuisine",model);
 		}
+
+		//restaurant specific details
 		[HttpGet("/restaurants/{id}/cuisines/{id2}/")]
 		public ActionResult RestaurantDetails(int id, int id2)
 		{
@@ -80,6 +94,7 @@ namespace BestRestaurants.Controllers
 			return View(details);
 		}
 
+		//Delete a restaurant form
 		[HttpGet("/cuisines/delete")]
 		public ActionResult DeleteAllCuisines()
 		{
@@ -94,6 +109,7 @@ namespace BestRestaurants.Controllers
 			return View("Index");
 		}
 
+		//DELETE A SPECIFIC RESTAURANT
 		[HttpGet("/restaurants/{id}/cuisines/{id2}/delete")]
 		public ActionResult DeleteSpecificRestaurant(int id, int id2)
 		{
@@ -120,6 +136,13 @@ namespace BestRestaurants.Controllers
 			Cuisine.Find(id).DeleteRestaurants();
 			return View("Cuisines", Cuisine.GetAll());
 		}
-
+		[HttpPost("/restaurants/sort/cuisine")]
+		public ActionResult SortAllRestaurantsByCuisine()
+		{
+			Dictionary<string,object> model = new Dictionary<string,object>();
+			model.Add("cuisines",Cuisine.GetAll());
+			model.Add("restaurants",Restaurant.GetAll());
+			return View(model);
+		}
 	}
 }

@@ -62,14 +62,24 @@ namespace BestRestaurants.Models
       return this.GetName().GetHashCode();
     }
 
-    public static List<Restaurant> GetAll()
+    public static List<Restaurant> GetAll(string order = _name)
     {
       List<Restaurant> restaurantList = new List<Restaurant>();
       MySqlConnection conn = DB.Connection();
       conn.Open();
 
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"SELECT * FROM Restaurant ORDER BY name;";
+      if (order == _cuisineId)
+      {
+      //  cmd.CommandText = @"SELECT * FROM Restaurant ORDER BY "
+      }
+      cmd.CommandText = @"SELECT * FROM Restaurant ORDER BY @order;";
+
+      MySqlParameter ordername = new MySqlParameter();
+      ordername.ParameterName = "@order";
+      ordername.Value = this.order;
+      cmd.Parameters.Add(order);
+
       var rdr = cmd.ExecuteReader() as MySqlDataReader;
       while(rdr.Read())
       {
@@ -201,7 +211,7 @@ namespace BestRestaurants.Models
       {
         id = rdr.GetInt32(0);
         username = rdr.GetString(1);
-        description = rdr.GetInt32(2);
+        description = rdr.GetString(2);
         rating = rdr.GetString(3);
         restaurantId = rdr.GetInt32(4);
         Review newReview = new Review(username, description, rating, restaurantId,id);
