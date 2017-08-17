@@ -139,10 +139,70 @@ namespace BestRestaurants.Models
       conn.Close();
     }
 
-    // public List<Restaurant> GetRestaurants()
-    // {
-    //
-    // }
+    public void DeleteThis()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"DELETE FROM Cuisine WHERE id = @thisId;";
 
+      MySqlParameter cuisine = new MySqlParameter();
+      cuisine.ParameterName = "@thisId";
+      cuisine.Value = this._id;
+      cmd.Parameters.Add(cuisine);
+
+      cmd.ExecuteNonQuery();
+      conn.Close();
+    }
+
+    public List<Restaurant> GetRestaurants()
+    {
+      List<Restaurant> cuisineSpecificRestaurants = new List<Restaurant>();
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT * FROM Restaurant WHERE cuisineId = @thisId;";
+
+      MySqlParameter cuisineId = new MySqlParameter();
+      cuisineId.ParameterName = "@thisId";
+      cuisineId.Value = this._id;
+      cmd.Parameters.Add(cuisineId);
+
+      int id;
+      string name;
+      string address;
+      string pricey;
+      int cuisId;
+
+      var rdr = cmd.ExecuteReader() as MySqlDataReader;
+
+      while(rdr.Read())
+      {
+        id = rdr.GetInt32(0);
+        name = rdr.GetString(1);
+        address = rdr.GetString(2);
+        pricey =rdr. GetString(3);
+        cuisId = rdr.GetInt32(4);
+        Restaurant newRestaurant = new Restaurant(name, address, pricey, cuisId, id);
+        cuisineSpecificRestaurants.Add(newRestaurant);
+      }
+      conn.Close();
+      return cuisineSpecificRestaurants;
+    }
+
+    public void DeleteRestaurants()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"DELETE FROM Restaurant WHERE cuisineId=@thisId;";
+
+      MySqlParameter cuisineId = new MySqlParameter();
+      cuisineId.ParameterName = "@thisId";
+      cuisineId.Value = this._id;
+      cmd.Parameters.Add(cuisineId);
+      cmd.ExecuteNonQuery();
+      conn.Close();
+    }
   }
 }

@@ -63,12 +63,78 @@ h2
 	margin-top: 150px;
 	margin-bottom: 50px;
 }
-
+#addcuisinebtn2
+{
+  margin-left: 100px;
+  margin-top: 150px;
+}
+#homebtn2
+{
+  margin-left: 50px;
+	margin-top: 150px;
+}
+#viewrestaurantbtn2
+{
+  margin-left: 50px;
+  margin-top: 150px;
+}
+#viewcuisinebtn3
+{
+  margin-top: 150px;
+  margin-left: 240px;
+  margin-right: 50px;
+}
+#homebtn3
+{
+  margin-top: 150px;
+  margin-left: 50px;
+}
+#addcuisine4
+{
+  margin-top: 50px;
+  margin-left: 270px;
+  margin-right: 50px;
+}
+#homebtn4
+{
+  margin-top: 50px;
+  margin-left: 50px;
+}
+#addrestaurant6
+{
+  margin-top: 50px;
+  margin-left: 0px;
+  margin-right: 50px;
+}
+#homebtn6
+{
+  margin-top: 50px;
+  margin-left: 80px;
+}
+#deleteall6
+{
+  margin-top: 50px;
+  margin-left: 0px;
+}
+label
+{
+  margin-top: 20px;
+  font-size: 40px;
+  color: #300815;
+  margin-bottom: 30px;
+}
+input
+{
+  width: 500px;
+  height: 40px;
+  font-size: 40px;
+}
 a
 {
   color:black;
 }
-ul {
+ul
+{
   text-align:left;
   list-style-type: none;
   font-size: 25px;

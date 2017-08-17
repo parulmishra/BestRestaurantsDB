@@ -8,8 +8,10 @@
    <h3>Address: @Model["restaurants"].GetAddress()</h3>
    <h3>Price Range: @Model["restaurants"].GetPricey()</h3>
    <h3>Cuisine type: @Model["cuisines"].GetName()</h3>
-</div>
+   <h3>Average Review: @Model["restaurants"].GetAverageReviews()</h3>
 
-<button class="btn btn-default" type="button" id="restaurantbycuisinebtn7"><a href='/restaurants/cuisines/@Model["cuisines"].GetId()'>Back to Reastaurant By Cuisine</a></button>
+</div>
+<button class="btn btn-default" id="homebtn7"><a href="/restaurants/@Model["restaurants"].GetId()/cuisines/@Model["cuisines"].GetId()/reviews">All Reviews</a></button>
+<button class="btn btn-default" type="button" id="restaurantbycuisinebtn7"><a href='/restaurants/cuisines/@Model["cuisines"].GetId()'>Back to Restaurant By Cuisine</a></button>
 <button class="btn btn-default" id="homebtn7"><a href="/">Home</a></button>
-<button class="btn btn-default" id="deletebtn7"><a href='/restaurants/cuisines/@Model["cuisines"].GetId()'>Delete</a></button>
+<button class="btn btn-default" id="deletebtn7"><a href='/restaurants/@Model["restaurants"].GetId()/cuisines/@Model["cuisines"].GetId()/delete'>Delete</a></button>

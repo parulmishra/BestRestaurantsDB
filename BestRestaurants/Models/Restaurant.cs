@@ -81,6 +81,7 @@ namespace BestRestaurants.Models
         Restaurant newRestaurant = new Restaurant(name,address,pricey,cuisineId,id);
         restaurantList.Add(newRestaurant);
       }
+      conn.Close();
       return restaurantList;
     }
     public void Save()
@@ -143,6 +144,7 @@ namespace BestRestaurants.Models
         cuisineId = rdr.GetInt32(4);
       }
       Restaurant newRestaurant = new Restaurant(name,address,pricey,cuisineId,restaurantId);
+      conn.Close();
       return newRestaurant;
     }
 
@@ -153,6 +155,7 @@ namespace BestRestaurants.Models
       var cmd = conn.CreateCommand() as MySqlCommand;
       cmd.CommandText = @"DELETE FROM Restaurant;";
       cmd.ExecuteNonQuery();
+      conn.Close();
     }
     public void UpdateAddress(string newAddress)
     {
@@ -173,6 +176,54 @@ namespace BestRestaurants.Models
 
       cmd.ExecuteNonQuery();
       _address = newAddress;
+      conn.Close();
+    }
+    public List<Review> GetReviewSpecificToRestaurant()
+    {
+      List<Review> reviewList = new List<Review>();
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT * FROM Review WHERE id = @thisId;";
+
+      MySqlParameter thisId = new MySqlParameter();
+      thisId.ParameterName = "@thisId";
+      thisId.Value = _id;
+      cmd.Parameters.Add(thisId);
+      var rdr = cmd.ExecuteReader() as MySqlDataReader;
+
+      int restaurantId = 0;
+      string username = "";
+      string description = "";
+      string rating = "";
+      int id=0;
+      while(rdr.Read())
+      {
+        id = rdr.GetInt32(0);
+        username = rdr.GetString(1);
+        description = rdr.GetInt32(2);
+        rating = rdr.GetString(3);
+        restaurantId = rdr.GetInt32(4);
+        Review newReview = new Review(username, description, rating, restaurantId,id);
+        reviewList.Add(newReview);
+      }
+      conn.Close();
+      return reviewList;
+    }
+    public void DeleteThis()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"DELETE FROM Restaurant WHERE id = @thisId;";
+
+      MySqlParameter restaurant = new MySqlParameter();
+      restaurant.ParameterName = "@thisId";
+      restaurant.Value = this._id;
+      cmd.Parameters.Add(restaurant);
+
+      cmd.ExecuteNonQuery();
+      conn.Close();
     }
   }
 }

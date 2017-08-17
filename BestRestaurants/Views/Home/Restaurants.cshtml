@@ -2,20 +2,62 @@
   Layout = "_Layout";
 }
 <h2>All Restaurants:</h2>
-
+<div class="well">
 @if (@Model["restaurants"].Count == 0)
 {
   <h3>No Restaurants have been added yet! Please view the cuisines if you wish to add a restaurant.</h3>
 }
 else
 {
-  <ul>
-  @foreach(var restaurant in @Model["restaurants"])
-  {
-    <li><a href="restaurants/@restaurant.GetId()/detail">@restaurant.GetName()</a></li>
-  }
-  </ul>
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Name:</h3>
+    </div>
+    <div class="col-md-3">
+      <h3>Cuisine Type:</h3>
+    </div>
+    <div class="col-md-3">
+      <h3>Average Review:</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <ul>
+      @foreach(var restaurant in @Model["restaurants"])
+      {
+        <li><a href='restaurants/@restaurant.GetId()/cuisines/@restaurant.GetCuisineId()'>@restaurant.GetName()</a></li>
+      }
+      </ul>
+    </div>
+    <div class="col-md-3">
+      <ul>
+      @foreach(var restaurant in @Model["restaurants"])
+      {
+        <li>
+        @foreach(var cuisine in @Model["cuisines"])
+        {
+            if(@cuisine.GetId() == @restaurant.GetCuisineId())
+            {
+              @cuisine.GetName()
+            }
+        }
+        </li>
+      }
+      </ul>
+    </div>
+    <div class="col-md-3">
+      <!--<ul>
+      @foreach(var restaurant in @Model["restaurants"])
+      {
+        <li>restaurant.GetAverageReviews()</li>
+      }
+      </ul>-->
+    </div>
+  </div>
 }
 
+</div>
+
+<button class="btn btn-default" id="addcuisinebtn2"><a href="/restaurants/delete">Delete All Restaurants</a></button>
 <button class="btn btn-default" id="viewcuisinebtn3"><a href="/cuisines">View Cuisines</a></button>
 <button class="btn btn-default" id="homebtn3"><a href="/">Home</a></button>

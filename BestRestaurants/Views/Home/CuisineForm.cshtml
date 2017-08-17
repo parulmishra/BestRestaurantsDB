@@ -4,12 +4,18 @@
 <h2>Add a Cuisine here</h2>
 
 <form action="/cuisines/add" method="post">
-  <label for="cuisine_name">Cuisine Type:</label>
+<div class="form-group">
+  <label id="cuisine_name"for="cuisine_name">Cuisine Type:</label>
   <input type="text" name="cuisine_name" id="cuisine_name">
+  </div>
 
-  <label for="cuisine_region">Region of Cuisine:</label>
+<div class="form-group">
+  <label id="cuisine_region" for="cuisine_region">Region of Cuisine:</label>
   <input type="text" name="cuisine_region" id="cuisine_region">
+</div>
+<div class="row">
+<button class="btn btn-default" id ="addcuisine4"type="submit">Add Cuisine</button>
 
-  <button class="btn btn-default" id ="addcuisine4"type="submit">Add Cuisine</button>
 </form>
 <button class="btn btn-default" id="homebtn4"><a href="/">Home</a></button>
+</div>

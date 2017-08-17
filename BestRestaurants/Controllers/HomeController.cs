@@ -47,7 +47,7 @@ namespace BestRestaurants.Controllers
 			Cuisine myCuisine = Cuisine.Find(id);
 			//model["cuisines"] = mycuisine;
 			model.Add("cuisines",myCuisine);
-			model.Add("restaurants",Restaurant.GetAll());
+			model.Add("restaurants",myCuisine.GetRestaurants());
 			return View(model);
 		}
 		[HttpGet("/restaurantform/add/{id}")]
@@ -64,7 +64,7 @@ namespace BestRestaurants.Controllers
 			Restaurant newRestaurant = new Restaurant(name,address,pricey,id);
 			newRestaurant.Save();
 			Dictionary<string,object> model = new Dictionary<string,object>();
-			model.Add("restaurants",Restaurant.GetAll());
+			model.Add("restaurants",Cuisine.Find(id).GetRestaurants());
 			model.Add("cuisines",Cuisine.Find(id));
 
 			return View("RestaurantByCuisine",model);
@@ -78,6 +78,47 @@ namespace BestRestaurants.Controllers
 			details.Add("restaurants",newRestaurant);
 			details.Add("cuisines",newCuisine);
 			return View(details);
+		}
+
+		[HttpGet("/cuisines/delete")]
+		public ActionResult DeleteAllCuisines()
+		{
+			Restaurant.DeleteAll();
+			Cuisine.DeleteAll();
+			return View("Cuisines", Cuisine.GetAll());
+		}
+		[HttpGet("/restaurants/delete")]
+		public ActionResult DeleteAllRestaurants()
+		{
+			Restaurant.DeleteAll();
+			return View("Index");
+		}
+
+		[HttpGet("/restaurants/{id}/cuisines/{id2}/delete")]
+		public ActionResult DeleteSpecificRestaurant(int id, int id2)
+		{
+		  (Restaurant.Find(id)).DeleteThis();
+			Dictionary<string, object> model = new Dictionary<string, object>();
+
+			model.Add("cuisines", Cuisine.Find(id2));
+			model.Add("restaurants", Restaurant.GetAll());
+
+			return View("RestaurantByCuisine", model);
+		}
+
+		[HttpGet("/cuisines/{id}/delete")]
+		public ActionResult DeleteSpecificCuisine(int id)
+		{
+			Cuisine.Find(id).DeleteRestaurants();
+			(Cuisine.Find(id)).DeleteThis();
+			return View("Cuisines", Cuisine.GetAll());
+		}
+
+		[HttpGet("/cuisines/{id}/deleteAll")]
+		public ActionResult DeleteSpecificCuisineRestaurants(int id)
+		{
+			Cuisine.Find(id).DeleteRestaurants();
+			return View("Cuisines", Cuisine.GetAll());
 		}
 
 	}
