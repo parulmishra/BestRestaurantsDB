@@ -3,7 +3,7 @@
 }
 <h2>All Restaurants:</h2>
 <div class="well">
-@if (@Model["restaurants"].Count == 0)
+@if (@Model.Count == 0)
 {
   <h3>No Restaurants have been added yet! Please view the cuisines if you wish to add a restaurant.</h3>
 }
@@ -22,35 +22,21 @@ else
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
       <ul class="restaurant-names">
-      @foreach(var restaurant in @Model["restaurants"])
+      @foreach(var rest in @Model)
       {
-        <li class="restaurant-sort"><a href='restaurants/@restaurant.GetId()/cuisines/@restaurant.GetCuisineId()'>@restaurant.GetName()</a></li>
-      }
-      </ul>
-    </div>
-    <div class="col-md-3">
-      <ul class="cuisine-names">
-      @foreach(var restaurant in @Model["restaurants"])
-      {
-        <li class="cuisine-sort">
-        @foreach(var cuisine in @Model["cuisines"])
-        {
-            if(@cuisine.GetId() == @restaurant.GetCuisineId())
-            {
-              @cuisine.GetName()
-            }
-        }
-        </li>
-      }
-      </ul>
-    </div>
-    <div class="col-md-3">
-      <ul>
-      @foreach(var restaurant in @Model["restaurants"])
-      {
-        <li>restaurant.GetAverageReviews()</li>
+        <li class="restaurant-sort">
+		
+		<div class="col-md-4"><a href='restaurants/@rest.Item1.GetId()/cuisines/@rest.Item1.GetCuisineId()'>@rest.Item1.GetName()</a>
+		</div>
+		<div class="col-md-4">
+		@rest.Item3.GetName()
+		</div>
+		<div class="col-md-4">
+		@rest.Item2
+		</div>
+		</li>
       }
       </ul>
     </div>

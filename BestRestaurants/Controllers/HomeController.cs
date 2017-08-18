@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BestRestaurants.Models;
 
 namespace BestRestaurants.Controllers
@@ -20,13 +21,43 @@ namespace BestRestaurants.Controllers
       List<Cuisine> allCuisines = Cuisine.GetAll();
 			return View(allCuisines);
     }
-		[HttpGet("/restaurants")]
-    public ActionResult Restaurants()
+		[HttpGet("/restaurants/{orderby}")]
+    public ActionResult Restaurants(string orderby)
     {
-      Dictionary<string,object> model = new Dictionary<string,object>();
-			model.Add("cuisines",Cuisine.GetAll());
-			model.Add("restaurants",Restaurant.GetAll());
-			return View(model);
+	  var cuisines = Cuisine.GetAll();
+	  var restaurants = Restaurant.GetAll();
+	  var reviews = Review.GetAll();
+	  var selected = restaurants.Select(r => 
+						new Tuple<Restaurant, double, Cuisine>(
+						r, 
+						Math.Round(reviews.Where(rev => rev.GetReastaurantId() == r.GetId())
+													   .Select(rev => rev.GetRating())
+													   .DefaultIfEmpty()
+													   .Average(), 2),
+						cuisines.Where(c => c.GetId() == r.GetCuisineId()).First()
+						));
+	  if(orderby == null)
+	  {
+		  var orderedSelected = selected.OrderBy(x => x.Item1.GetName()).ToList();
+		  
+		  return View(orderedSelected);
+	  }
+	  else if(orderby == "cuisine")
+	  {
+		  var orderedSelected = selected.OrderBy(x => x.Item3.GetName()).ToList();
+		  return View(orderedSelected);
+	  }
+	  else if(orderby == "rating")
+	  {
+		  var orderedSelected = selected.OrderBy(x => x.Item2).ToList();
+		  return View(orderedSelected);
+	  }
+	  else
+	  {
+		  var orderedSelected = selected.OrderBy(x => x.Item1.GetName()).ToList();
+		  
+		  return View(orderedSelected);
+	  }
     }
 
 		//CUISINE MANAGEMENT PAGES

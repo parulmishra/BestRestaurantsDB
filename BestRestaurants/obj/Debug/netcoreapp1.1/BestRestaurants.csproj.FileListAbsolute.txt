@@ -22,3 +22,11 @@ C:/Users/amdubedy/desktop/mywork/BestRestaurantsDB.Solution/BestRestaurants/obj/
 /Users/Guest/Desktop/BestRestaurantsDB.Solution/BestRestaurants/obj/Debug/netcoreapp1.1/BestRestaurants.AssemblyInfo.cs
 /Users/Guest/Desktop/BestRestaurantsDB.Solution/BestRestaurants/obj/Debug/netcoreapp1.1/BestRestaurants.dll
 /Users/Guest/Desktop/BestRestaurantsDB.Solution/BestRestaurants/obj/Debug/netcoreapp1.1/BestRestaurants.pdb
+C:\Users\amdubedy\desktop\BestRestaurantsDB.Solution\BestRestaurants\bin\Debug\netcoreapp1.1\BestRestaurants.deps.json
+C:\Users\amdubedy\desktop\BestRestaurantsDB.Solution\BestRestaurants\bin\Debug\netcoreapp1.1\BestRestaurants.runtimeconfig.json
+C:\Users\amdubedy\desktop\BestRestaurantsDB.Solution\BestRestaurants\bin\Debug\netcoreapp1.1\BestRestaurants.runtimeconfig.dev.json
+C:\Users\amdubedy\desktop\BestRestaurantsDB.Solution\BestRestaurants\bin\Debug\netcoreapp1.1\BestRestaurants.dll
+C:\Users\amdubedy\desktop\BestRestaurantsDB.Solution\BestRestaurants\bin\Debug\netcoreapp1.1\BestRestaurants.pdb
+C:\Users\amdubedy\desktop\BestRestaurantsDB.Solution\BestRestaurants\obj\Debug\netcoreapp1.1\BestRestaurants.AssemblyInfo.cs
+C:\Users\amdubedy\desktop\BestRestaurantsDB.Solution\BestRestaurants\obj\Debug\netcoreapp1.1\BestRestaurants.dll
+C:\Users\amdubedy\desktop\BestRestaurantsDB.Solution\BestRestaurants\obj\Debug\netcoreapp1.1\BestRestaurants.pdb
